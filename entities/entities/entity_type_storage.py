@@ -1,9 +1,10 @@
-entity_types = [
-    {
+
+DATA = {
+    "room": {
         "name": "room",
         "description": "closed set of rooms in a house",
         "mechanism": {
-           "type": "list", 
+        "type": "list", 
             "restricted": True,
             "items": [
                 {
@@ -24,4 +25,23 @@ entity_types = [
             ]
         }
     }
-]
+}
+
+class EntityTypeStorage:
+
+
+    def __init__(self):
+        self._data = DATA
+
+    def find(self, key):
+        if self._data[key] is not None:
+            return self._data[key]
+        return None
+
+    def findAll(self):
+        return self._data
+
+    def create(self, value):
+        if self._data.get(value['name']):
+            raise Exception('Element already present')
+        self._data[value['name']] = value

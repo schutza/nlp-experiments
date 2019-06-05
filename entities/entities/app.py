@@ -1,10 +1,11 @@
-from flask import Flask
+from flask import Flask, request
 from flask_restplus import Api, Resource, fields
 
-from entity_type_storage import entity_types as storage
+from entity_type_storage import EntityTypeStorage
 
 app = Flask(__name__)
 api = Api(app)
+storage = EntityTypeStorage()
 
 entityModel = api.model('EntityType', {
     'name': fields.String,
@@ -12,25 +13,24 @@ entityModel = api.model('EntityType', {
 })
 
 
-def extract(key, value, elements):
-    for element in elements:
-        if element[key] == value:
-            return element
-    return None
-
 @api.route('/entitytypes')
-class EntityListApi(Resource):
+class EntitiesApi(Resource):
     def get(self):
-        return storage
+        return storage.findAll()
 
     def post(self):
-        pass
+        entity_type = api.payload
+        try:
+            storage.create(entity_type)
+        except Exception as e:
+            return str(e), 422
+        return entity_type, 201
 
 
 @api.route('/entitytypes/<string:entity_type_name>')
 class EntityApi(Resource):
     def get(self, entity_type_name):
-        entity_type = extract("name", entity_type_name, storage)
+        entity_type = storage.find(entity_type_name)
         return entity_type
 
 
