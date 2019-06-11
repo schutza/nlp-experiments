@@ -4,23 +4,23 @@ DATA = {
         "name": "room",
         "description": "closed set of rooms in a house",
         "mechanism": {
-        "type": "list", 
+            "type": "list", 
             "restricted": True,
             "items": [
                 {
-                "value": "bathroom",
-                "synonyms": [
-                    "bath", "ensuite"
-                ]
+                    "value": "bathroom",
+                    "synonyms": [
+                        "bath", "ensuite"
+                    ]
                 },
                 {
-                "value": "hall"
+                    "value": "hall"
                 },
                 {
-                "value": "living room",
-                "synonyms": [
-                    "lounge", "sitting room", "good room", "good good room"
-                ]
+                    "value": "living room",
+                    "synonyms": [
+                        "lounge", "sitting room", "good room", "good good room"
+                    ]
                 }
             ]
         }

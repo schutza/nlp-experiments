@@ -18,25 +18,27 @@ This entity type enumerates all rooms in a house. Entity candidates are controll
 {
   "name": "Room",
   "description": "closed set of rooms in a house",
-  "mechanism": "list",
-  "restricted": true,
-  "entries": [
-    {
-      "value": "bathroom",
-      "synonyms": [
-        "bath", "ensuite"
-      ]
-    },
-    {
-      "value": "hall"
-    },
-    {
-      "value": "living room",
-      "synonyms": [
-        "lounge", "sitting room", "good room", "good good room"
-      ]
-    }
-  ]
+  "mechanism": {
+    "type": "list",
+    "restricted": true,
+    "items": [
+      {
+        "value": "bathroom",
+        "synonyms": [
+          "bath", "ensuite"
+        ]
+      },
+      {
+        "value": "hall"
+      },
+      {
+        "value": "living room",
+        "synonyms": [
+          "lounge", "sitting room", "good room", "good good room"
+        ]
+      }
+    ]
+  },
 }
 ```
 
@@ -48,28 +50,30 @@ This entity type provides a number of examples in a list. Entity candidates are 
 {
   "name": "Big Data Vendors",
   "description": "Companies that play in the big data industry",
-  "mechanism": "list",
-  "restricted": false,
-  "entries": [
-    {
-      "value": "Cloudera"
-    },
-    {
-      "value": "HortonWorks"
-    },
-    {
-      "value": "Amazon EMR",
-      "synonyms": [
-        "EMR", "Elastic MapReduce"
-      ]
-    },
-    {
-      "value": "MapR",
-      "synonyms": [
-        "EMR", "Elastic MapReduce"
-      ]
-    }
-  ]
+  "mechanism": {
+    "type":   "list",
+    "restricted": false,
+    "items": [
+      {
+        "value": "Cloudera"
+      },
+      {
+        "value": "HortonWorks"
+      },
+      {
+        "value": "Amazon EMR",
+        "synonyms": [
+          "EMR", "Elastic MapReduce"
+        ]
+      },
+      {
+        "value": "MapR",
+        "synonyms": [
+          "EMR", "Elastic MapReduce"
+        ]
+      }
+    ]
+  }
 }
 ```
 
@@ -81,13 +85,15 @@ This entity type provides a number regular expressions in order to control entit
 {
   "name": "Flight Numbers",
   "description": "Recognizes flight numbers across various airlines that adhere to the given regular expression, for example: AA4711, FR0815, AA 1234",
-  "mechanism": "regexp",
-  "restricted": false,
-  "entries": [
-    {
-      "value": "[A-Z][A-Z]\\s?[0-9]{4,4}"
-    }
-  ]
+  "mechanism": {
+    "type":   "regexp",
+    "restricted": false,
+    "entries": [
+      {
+        "value": "[A-Z][A-Z]\\s?[0-9]{4,4}"
+      }
+    ]
+  }
 }
 ```
 
@@ -99,16 +105,18 @@ This entity type provides a context pattern. It is useful when the surrounding c
 {
   "name": "Book Titles",
   "description": "Recognizes book titles based on their surrounding context, for example: author of the novel |The Catcher in the Rye|., She wrote the best-selling novel |Gone Girl|",
-  "mechanism": "context pattern",
-  "restricted": false,
-  "entries": [
-    {
-      "value": "author of the novel |.*|."
-    },
-    {
-      "value": "wrote the best-selling novel |.*|."
-    }
-  ]
+  "mechanism": {
+    "type": "context pattern",
+    "restricted": false,
+    "entries": [
+      {
+        "value": "author of the novel |.*|."
+      },
+      {
+        "value": "wrote the best-selling novel |.*|."
+      }
+    ]
+  }
 }
 ```
 
