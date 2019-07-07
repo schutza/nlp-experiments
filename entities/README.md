@@ -169,15 +169,18 @@ In absence of a different temporal Entity Type, NLU quickly reaches its limits. 
 
 ## Use Cases
 
+### Date/Time without constraints
+
 Given NLU Context with no constraint\
 And customer input is: "On Friday."\
 When NLU performs,\
-Then an Entity of type Date is returned,
+Then an Entity of type Date is returned,\
 With Value: Friday/next-Friday-from-today.
 
+### Date/Time with constraint: past
 
 Given NLU Context with constraint of Date/past\
-And ustomer input is: "I was here yesterday"\
+And customer input is: "I was here yesterday"\
 When NLU performs,\
-Then an Entity of type Date is returned,
+Then an Entity of type Date is returned,\
 With Value: Friday/previous-Friday-from-today.
