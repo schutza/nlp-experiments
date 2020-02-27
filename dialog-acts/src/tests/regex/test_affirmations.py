@@ -1,6 +1,6 @@
 import pytest
 
-from dialog_acts.affirmations import RegexAffirmationDetector
+from dialog_acts.regex.affirmations import RegexAffirmationDetector
 
 class TestRegexAffirmationDetector:
 

@@ -1,9 +1,9 @@
 import re
 
 from dialog_acts.base_detectors import DialogActDetector
-from dialog_acts.lexicon.language_resources import (
+from dialog_acts.regex.lexicon.language_resources import (
     YES_WORDS_NON_NEGATABLE, YES_WORDS_NEGATABLE_LHS, YES_WORDS_NEGATABLE_RHS)
-from dialog_acts.util import find_negation_word
+from dialog_acts.regex.util import find_negation_word
 
 class RegexAffirmationDetector(DialogActDetector):
 
