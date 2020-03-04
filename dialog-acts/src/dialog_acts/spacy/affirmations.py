@@ -1,9 +1,8 @@
-import spacy
 from spacy.matcher import Matcher
 from spacy.matcher import PhraseMatcher
 
 from dialog_acts.base_detectors import DialogActDetector
-
+from dialog_acts.spacy.language_processor import NLP
 
 affirmation_outright_pattern = [
     {"LOWER": {"IN": ["yes", "yep", "yessir", "affirmative", "yeah", "yup"]}}
@@ -36,7 +35,7 @@ negated_affirmation_phrases = [
 class SpacyAffirmationDetector(DialogActDetector):
 
     def __init__(self):
-        self._nlp = spacy.load("en_core_web_sm")
+        self._nlp = NLP.get('en')
 
         self._phrase_matcher_negative = PhraseMatcher(self._nlp.vocab, attr="LOWER")
         negated_affirmation_phrase_patterns = [self._nlp.make_doc(text) for text in negated_affirmation_phrases]
