@@ -1,6 +1,6 @@
 import pytest
 
-from dialog_acts.spacy.negations import SpacyNegationDetector
+from textability.dialog_acts.nlp.negations import SpacyNegationDetector
 
 class TestSpacyNegationDetector:
 

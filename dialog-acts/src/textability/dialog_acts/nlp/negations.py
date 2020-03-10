@@ -1,8 +1,8 @@
-import spacy
 from spacy.matcher import Matcher
 from spacy.matcher import PhraseMatcher
 
-from dialog_acts.base_detectors import DialogActDetector
+from textability.dialog_acts.base_detectors import DialogActDetector
+from textability.dialog_acts.nlp.language_processor import NLP
 
 
 negation_outright_pattern = [
@@ -32,7 +32,7 @@ negation_phrases = [
 class SpacyNegationDetector(DialogActDetector):
 
     def __init__(self):
-        self._nlp = spacy.load("en_core_web_sm")
+        self._nlp = NLP.get('en')
 
         self._phrase_matcher = PhraseMatcher(self._nlp.vocab, attr="LOWER")
         negation_phrase_patterns = [self._nlp.make_doc(text) for text in negation_phrases]
@@ -48,12 +48,12 @@ class SpacyNegationDetector(DialogActDetector):
         if phrase_matches:
             (match_id, start, end) = phrase_matches[0]
             span = doc[start:end]
-            return (True, None, span.text)
+            return True, span.text
 
         matches = self._matcher(doc)
         if matches:
             (match_id, start, end) = matches[0]
             span = doc[start:end]
-            return (True, None, span.text)
+            return True, span.text
 
-        return (False, None)
+        return False, None

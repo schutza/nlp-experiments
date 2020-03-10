@@ -1,11 +1,11 @@
 import pytest
 
-from dialog_acts.regex.affirmations import RegexAffirmationDetector
+from textability.dialog_acts.nlp.affirmations import SpacyAffirmationDetector
 
-class TestRegexAffirmationDetector:
+class TestSpacyAffirmationDetector:
 
     def setup_method(self, test_method):
-        self.detector = RegexAffirmationDetector()
+        self.detector = SpacyAffirmationDetector()
 
     def teardown_method(self, test_method):
         self.detector = None

@@ -1,15 +1,15 @@
 from spacy.matcher import Matcher
 from spacy.matcher import PhraseMatcher
 
-from dialog_acts.base_detectors import DialogActDetector
-from dialog_acts.spacy.language_processor import NLP
+from textability.dialog_acts.base_detectors import DialogActDetector
+from textability.dialog_acts.nlp.language_processor import NLP
 
 affirmation_outright_pattern = [
     {"LOWER": {"IN": ["yes", "yep", "yessir", "affirmative", "yeah", "yup"]}}
 ]
 
 affirmation_not_negated_lhs_pattern = [
-    {"LOWER": {"IN": ["right", "okay", "ok", "true", "correct"]}}
+    {"LOWER": {"IN": ["right", "sure", "okay", "ok", "true", "correct"]}}
 ]
 
 affirmation_not_negated_rhs_pattern = [
@@ -55,18 +55,18 @@ class SpacyAffirmationDetector(DialogActDetector):
         if negated_phrase_matches:
             (match_id, start, end) = negated_phrase_matches[0]
             span = doc[start:end]
-            return (False, None, span.text)
+            return False, span.text
 
         phrase_matches = self._phrase_matcher(doc)
         if phrase_matches:
             (match_id, start, end) = phrase_matches[0]
             span = doc[start:end]
-            return (True, None, span.text)
+            return True, span.text
 
         token_matches = self._token_matcher(doc)
         if token_matches:
             (match_id, start, end) = token_matches[0]
             span = doc[start:end]
-            return (True, None, span.text)
+            return True, span.text
 
-        return (False, None)
+        return False, None
