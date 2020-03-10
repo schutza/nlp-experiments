@@ -1,6 +1,6 @@
 import re
 
-from dialog_acts.lexicon.language_resources import NEGATION_WORDS
+from textability.dialog_acts.regex.lexicon.language_resources import NEGATION_WORDS
 
 def find_negation_word(text):
     match = re.search(NEGATION_WORDS, text)

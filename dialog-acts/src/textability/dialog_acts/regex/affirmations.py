@@ -1,9 +1,9 @@
 import re
 
-from dialog_acts.base_detectors import DialogActDetector
-from dialog_acts.lexicon.language_resources import (
+from textability.dialog_acts.base_detectors import DialogActDetector
+from textability.dialog_acts.regex.lexicon.language_resources import (
     YES_WORDS_NON_NEGATABLE, YES_WORDS_NEGATABLE_LHS, YES_WORDS_NEGATABLE_RHS)
-from dialog_acts.util import find_negation_word
+from textability.dialog_acts.regex.util import find_negation_word
 
 class RegexAffirmationDetector(DialogActDetector):
 
@@ -13,8 +13,8 @@ class RegexAffirmationDetector(DialogActDetector):
     def _find_non_negatable_yes_word(self, text):
         match = re.search(YES_WORDS_NON_NEGATABLE, text)
         if match:
-            return (True, match.group(0))
-        return (False, None)
+            return True, match.group(0)
+        return False, None
 
     def _find_negatable_yes_word(self, text, negation_word=None):
         lhs_license = re.search(YES_WORDS_NEGATABLE_LHS, text)
@@ -24,9 +24,9 @@ class RegexAffirmationDetector(DialogActDetector):
                 idx = text.find(lhs_license.group(0))
                 lhs = text[:idx]
                 if re.search(negation_word ,lhs):
-                    return (False, None)
+                    return False, None
             else:
-                return (True, lhs_license.group(0))
+                return True, lhs_license.group(0)
         rhs_license = re.search(YES_WORDS_NEGATABLE_RHS, text)
         if rhs_license:
             if negation_word:
@@ -34,10 +34,10 @@ class RegexAffirmationDetector(DialogActDetector):
                 idx = text.find(rhs_license.group(0))
                 rhs = text[idx:]
                 if re.search(negation_word ,rhs):
-                    return (False, None)
+                    return False, None
             else:
-                return (True, rhs_license.group(0))
-        return (False, None)
+                return True, rhs_license.group(0)
+        return False, None
 
     def _is_affirm(self, text):
         """
@@ -57,7 +57,7 @@ class RegexAffirmationDetector(DialogActDetector):
         """
         sure_yes = self._find_non_negatable_yes_word(text)
         if sure_yes[0]:
-            return (sure_yes[0], None, sure_yes[1])
+            return sure_yes[0], sure_yes[1]
 
         maybe_negation_word = find_negation_word(text)
         if maybe_negation_word:
@@ -66,5 +66,5 @@ class RegexAffirmationDetector(DialogActDetector):
             maybe_yes = self._find_negatable_yes_word(text, negation_word=None)
 
         if maybe_yes[0]:
-            return (True, maybe_negation_word[1] if maybe_negation_word[0] else None, maybe_yes[1])
-        return (False, None, None)
+            return True, maybe_yes[1]
+        return False, None

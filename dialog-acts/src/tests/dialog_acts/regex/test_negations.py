@@ -1,6 +1,6 @@
 import pytest
 
-from dialog_acts.negations import RegexNegationDetector
+from textability.dialog_acts.regex.negations import RegexNegationDetector
 
 class TestRegexNegationDetector:
 
