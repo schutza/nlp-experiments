@@ -124,31 +124,20 @@ This entity type provides a context pattern. It is useful when the surrounding c
 
 Provided entity types (e.g. `location`, `datetime`, etc.), that are supported by 3rd-party providers such as Snips, LUIS, IBM Watson etc., need to be channeled through this framework, and mapped to the corresponding defined entity types.
 
-## Adapters to 3rd-party Entity Recognizers
+## Benefits of an Entity Type Registry
 
-Today, Dialog Engine and NLU Service only support 4 builtin slot types / entity types:
+### Encapsulation
 
-* builtin.datetime
-* builtin.currency
-* builtin.X
-* builtin.Y
+An NLU system must control which Entity Types it provides. That does not mean the NLU has to implement Entity Types already provided by other 3rd-parties, such as `location`, `currency`, etc.
+But the NLU has to provide its own abstraction layer to those. This also enables leveraging multiple 3rd-party provider interchangeably.
 
-The prefix `builtin` in this case refers to the implementation provided by Snips. Special effort should be made to encapsulate this reference properly.
-
-### Benefits of an Entity Type Registry
-
-#### Encapsulation
-
-Genesys NLU must control which Entity Types it provides. That does not mean Genesys NLU has to implement Entity Types already provided by other 3rd-parties, such as `location`, `currency`, etc.
-But Genesys NLU has to provide its own abstraction layer to those. This also enables leveraging multiple 3rd-party provider interchangeably.
-
-#### Re-usability of Entity Types across Domains
+### Re-usability of Entity Types across Domains
 
 Some entity types are specific to a particular domain (e.g. `Flight Numbers`), some have scope over multiple domains (e.g. `Bank Account Numbers`).
-Today, an Entity Type is defined within the scope of a Domain, and re-use across domains is not possible out-of-the-box. The Entity Type definition would have to be duplicated in order to achieve that.
+If an Entity Type is defined within the scope of its Bot or NLU Domain, then re-use across domains is not possible out-of-the-box. The Entity Type definition would have to be duplicated in order to achieve that.
 With an abstraction layer over entities as first-class citizens, re-use would become possible.
 
-#### Adaptability of 3rd-party Entity Types
+### Adaptability of 3rd-party Entity Types
 
 As mentioned above, encapsulation would allow 3rd-party Entity Types to be leveraged under a common schema.
 With an appropriate layer of abstraction in place, further benefits would include a more granular control of how 3rd-party entities are mapped into slots.
@@ -165,7 +154,7 @@ Example:
 * Genesys NLU: Last Friday/DateTime -> `2019-05-31T00:00:00Z`
   * This resolution to DateTime is too granular, and Dialog would have to make further adjustments to *coarsen* the resolved value to `2019-05-31`
 
-In absence of a different temporal Entity Type, NLU quickly reaches its limits. If there were separate additional Entity Types of `Date` and `Time` to start with, many use-cases would be spared cumbersome post-processing of NLU output at the Dialog level.
+In absence of a different temporal Entity Type, an NLU would quickly reach its limits. If there were separate additional Entity Types of `Date` and `Time` to start with, many use-cases would be spared cumbersome post-processing of NLU output at the Dialog level.
 
 ## Use Cases
 
